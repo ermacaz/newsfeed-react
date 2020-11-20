@@ -93,13 +93,17 @@ const imgColStyle = {
 }
 
 const imageStyle = {
-  height: '4em',
+  maxHeight: '4em',
+  maxWidth: '6em',
   verticalAlign: 'center'
   
 }
 
 const rowStyle = {
-  paddingBottom: '1em',
-  paddingTop: '1em',
-  borderBottom: "1px solid lightgray"
+  paddingBottom: '0.5em',
+  paddingTop: '0.5em',
+  borderBottom: "1px solid lightgray",
+  display: 'flex',
+  alignItems: 'center',
+  height: '5em'
 }
