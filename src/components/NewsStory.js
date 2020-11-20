@@ -27,7 +27,7 @@ class NewsStory extends React.Component {
       if (this.state.story.description && this.state.story.description.length > 0) {
         return (
           <Row style={rowStyle}>
-            <Col md={9}>
+            <Col xs={9}>
               <OverlayTrigger
                 placement="top"
                 delay={{show: 50, hide: 300}}
@@ -36,7 +36,7 @@ class NewsStory extends React.Component {
                 <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
               </OverlayTrigger>
             </Col>
-            <Col md={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
           </Row>
         )
        
