@@ -36,17 +36,17 @@ class NewsStory extends React.Component {
                 <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
               </OverlayTrigger>
             </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={{span: 2, offset: 1}} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
           </Row>
         )
        
       } else {
         return (
           <Row style={rowStyle}>
-            <Col md={9}>
+            <Col xs={9}>
               <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
             </Col>
-            <Col md={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={{span: 2, offset: 1}} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
           </Row>
         )
       }
@@ -105,5 +105,5 @@ const rowStyle = {
   borderBottom: "1px solid lightgray",
   display: 'flex',
   alignItems: 'center',
-  height: '5em'
+  minHeight: '5em'
 }
