@@ -36,7 +36,7 @@ class NewsStory extends React.Component {
                 <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
               </OverlayTrigger>
             </Col>
-            <Col xs={{span: 2, offset: 1}} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
           </Row>
         )
        
