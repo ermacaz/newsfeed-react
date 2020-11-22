@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-       <Container fluid>
+       <Container fluid style={paddedStyle}>
        <NewsSourcesSet/>
        </Container>
       </header>
@@ -18,3 +18,7 @@ function App() {
 }
 
 export default App;
+
+const paddedStyle = {
+  paddingTop: '1em'
+}
