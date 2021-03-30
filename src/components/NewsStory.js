@@ -9,7 +9,8 @@ class NewsStory extends React.Component {
   constructor(...props) {
     super(...props)
     this.state = {
-      story: this.props.story
+      story: this.props.story,
+      togglable: this.props.togglable
     }
   }
   
@@ -19,14 +20,29 @@ class NewsStory extends React.Component {
     </Tooltip>
   );
   
-  
+  rowStyle = togglable => {
+    let display = 'flex';
+    if (togglable) {
+      display = 'none';
+    }
+    return {
+      paddingBottom: '0.5em',
+      paddingTop: '0.5em',
+      borderBottom: "1px solid lightgray",
+      display: display,
+      alignItems: 'center',
+      minHeight: '5em',
+      color: 'white'
+    }
+  }
   
   render = () => {
     const story = this.props.story
+    const togglable = this.state.togglable
     if (story.media_url && story.media_url.length > 0) {
       if (this.state.story.description && this.state.story.description.length > 0) {
         return (
-          <Row style={rowStyle}>
+          <Row style={this.rowStyle(togglable)}>
             <Col xs={9}>
               <OverlayTrigger
                 placement="top"
@@ -42,7 +58,7 @@ class NewsStory extends React.Component {
        
       } else {
         return (
-          <Row style={rowStyle}>
+          <Row style={this.rowStyle(togglable)}>
             <Col xs={9}>
               <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
             </Col>
@@ -53,7 +69,7 @@ class NewsStory extends React.Component {
     } else {
       if (this.state.story.description && this.state.story.description.length > 0) {
         return (
-          <Row style={rowStyle}>
+          <Row style={this.rowStyle(togglable)}>
             <Col md={12}>
               <OverlayTrigger
                 placement="top"
@@ -67,7 +83,7 @@ class NewsStory extends React.Component {
         )
       } else {
         return (
-          <Row style={rowStyle}>
+          <Row style={this.rowStyle(togglable)}>
             <Col md={12}>
              
                 <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
@@ -99,11 +115,3 @@ const imageStyle = {
   
 }
 
-const rowStyle = {
-  paddingBottom: '0.5em',
-  paddingTop: '0.5em',
-  borderBottom: "1px solid lightgray",
-  display: 'flex',
-  alignItems: 'center',
-  minHeight: '5em'
-}
