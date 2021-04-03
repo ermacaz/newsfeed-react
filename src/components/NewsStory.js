@@ -49,10 +49,10 @@ class NewsStory extends React.Component {
                 delay={{show: 50, hide: 300}}
                 overlay={this.renderTooltip}
               >
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
+                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
               </OverlayTrigger>
             </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}></img></Col>
           </Row>
         )
        
@@ -62,7 +62,7 @@ class NewsStory extends React.Component {
             <Col xs={9}>
               <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
             </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}></img></Col>
           </Row>
         )
       }
@@ -76,7 +76,7 @@ class NewsStory extends React.Component {
                 delay={{show: 50, hide: 300}}
                 overlay={this.renderTooltip}
               >
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
+                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
               </OverlayTrigger>
             </Col>
           </Row>
@@ -86,7 +86,7 @@ class NewsStory extends React.Component {
           <Row style={this.rowStyle(togglable)}>
             <Col md={12}>
              
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
+                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
             </Col>
           </Row>
         )
