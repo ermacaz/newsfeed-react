@@ -6,7 +6,6 @@ import ActionCable from "actioncable";
 import {API_WS_ROOT} from "../constants";
 import ShowHideSwitch from "./ShowHideSwitch";
 
-
 class NewsSource extends React.Component {
  
   
@@ -42,39 +41,25 @@ class NewsSource extends React.Component {
   }
   
   render = () => {
-    if (this.state.hideExtraLinks === '0') {
-      return (
-        <Col md={4} style={colStyle}>
-          <Row style={storyDivStyle}>
-            <Col md={{span: 11, offset: 1}}>
-              <h3><span style={headerStyle} onClick={this.handleClick} >{this.state.source.source_name}</span></h3>
-            </Col>
-          </Row>
-          <Row style={storyDivStyle}>
-            <Col md={12}>
-              <p>{newsStories(this.state.source.stories)}</p>
-              <p>{<ShowHideSwitch showExtra={this.showExtra} hideExtra={this.hideExtra} sourceName={this.state.source.source_name}/>}</p>
-            </Col>
-          </Row>
-        </Col>
-      )
-    } else {
-      return (
-        <Col md={4} style={colStyle}>
-          <Row style={storyDivStyle}>
-            <Col md={{span: 11, offset: 1}}>
-              <h3><span style={headerStyle} onClick={this.handleClick} >{this.state.source.source_name}</span></h3>
-            </Col>
-          </Row>
-          <Row style={storyDivStyle}>
-            <Col md={12}>
-              <p>{newsStories(this.state.source.stories.slice(0,9))}</p>
-              <p>{<ShowHideSwitch hideExtra={this.hideExtra} showExtra={this.showExtra}  sourceName={this.state.source.source_name}/>}</p>
-            </Col>
-          </Row>
-        </Col>
-      )
+    let stories = this.state.source.stories;
+    if (this.state.hideExtraLinks !== '0') {
+      stories = stories.slice(0,9)
     }
+    return (
+      <Col md={4} style={colStyle}>
+        <Row style={storyDivStyle}>
+          <Col md={{span: 11, offset: 1}}>
+            <h3><span className={'newsSourceTitle'} onClick={this.handleClick} >{this.state.source.source_name}</span></h3>
+          </Col>
+        </Row>
+        <Row style={storyDivStyle}>
+          <Col md={12}>
+            <p>{newsStories(stories)}</p>
+            <p>{<ShowHideSwitch showExtra={this.showExtra} hideExtra={this.hideExtra} sourceName={this.state.source.source_name}/>}</p>
+          </Col>
+        </Row>
+      </Col>
+    )
   }
 }
 export default NewsSource;
@@ -95,10 +80,6 @@ const newsStoriesTogglable = stories => {
   })
 }
 
-const headerStyle = {
-  textDecoration: 'underline',
-  cursor: 'pointer',
-}
 
 const colStyle = {
   marginBottom: '3em'

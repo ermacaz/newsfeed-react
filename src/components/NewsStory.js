@@ -14,9 +14,17 @@ class NewsStory extends React.Component {
     }
   }
   
+  
+  sanitizeString = str => {
+      let input = str.replace(/(<([^>]+)>)/ig, '').replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')
+      var doc = new DOMParser().parseFromString(input, "text/html");
+    debugger
+      return doc.documentElement.textContent;
+  }
+  
   renderTooltip = props => (
-    <Tooltip id="button-tooltip" {...props}>
-      {this.state.story.description}
+    <Tooltip id="button-tooltip"  {...props}>
+      <span className={'tooltipText'}>{this.sanitizeString(this.state.story.description)}</span>
     </Tooltip>
   );
   
@@ -28,7 +36,7 @@ class NewsStory extends React.Component {
     return {
       paddingBottom: '0.5em',
       paddingTop: '0.5em',
-      borderBottom: "1px solid lightgray",
+      borderBottom: "1px solid #6272a4",
       display: display,
       alignItems: 'center',
       minHeight: '5em',
@@ -49,10 +57,10 @@ class NewsStory extends React.Component {
                 delay={{show: 50, hide: 300}}
                 overlay={this.renderTooltip}
               >
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
+                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
               </OverlayTrigger>
             </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={this.sanitizeString(story.media_url)}></img></Col>
           </Row>
         )
        
@@ -60,9 +68,9 @@ class NewsStory extends React.Component {
         return (
           <Row style={this.rowStyle(togglable)}>
             <Col xs={9}>
-              <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title}</a>
+              <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
             </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={story.media_url.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}></img></Col>
+            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={this.sanitizeString(story.media_url)}></img></Col>
           </Row>
         )
       }
@@ -76,7 +84,7 @@ class NewsStory extends React.Component {
                 delay={{show: 50, hide: 300}}
                 overlay={this.renderTooltip}
               >
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
+                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
               </OverlayTrigger>
             </Col>
           </Row>
@@ -86,7 +94,7 @@ class NewsStory extends React.Component {
           <Row style={this.rowStyle(togglable)}>
             <Col md={12}>
              
-                <a className="hover-info" style={linkStyle} href={story.link} target="_blank" rel="noreferrer">{story.title.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')}</a>
+                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
             </Col>
           </Row>
         )
@@ -99,8 +107,7 @@ export default NewsStory
 
 
 const linkStyle = {
-  display: 'inline-block',
-  color: 'white'
+
 }
 
 const imgColStyle = {

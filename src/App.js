@@ -1,9 +1,9 @@
 import logo from './logo.svg';
-import './App.css';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.css';
 import NewsSourcesSet from "./components/NewsSourcesSet";
 import React from "react";
+import './App.css';
 
 function App() {
   return (
@@ -20,5 +20,6 @@ function App() {
 export default App;
 
 const paddedStyle = {
-  paddingTop: '1em'
+  paddingTop: '1em',
+  backgroundColor: '#282a36'
 }

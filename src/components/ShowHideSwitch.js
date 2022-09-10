@@ -69,16 +69,8 @@ export default ShowHideSwitch
 const rowStyle = {
   paddingBottom: '0.5em',
   paddingTop: '0.5em',
-  borderBottom: "1px solid lightgray",
+  borderBottom: "1px solid #f1fa8c",
   display: 'flex',
   alignItems: 'center',
 }
 
-
-
-
-
-const linkStyle = {
-  display: 'inline-block',
-  color: 'white'
-}

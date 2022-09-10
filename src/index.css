@@ -1,10 +1,43 @@
 
 body {
-  background-color: black;
+  background-color: #282a36;
 }
 
-app {
-    background-color: black;
+.App {
+    background-color: #282a36;
+}
+
+.app-header {
+  background-color: #282a36;
+}
+
+.newsSourceTitle {
+  textDecoration: 'underline';
+  cursor: pointer;
+  color: #bd93f9
+}
+
+.newsStoryHeadline {
+  display: inline-block;
+  color: #8be9fd
+}
+.newsStoryHeadline:hover {
+  color: #6272a4;
+  text-decoration: none;
+}
+
+.tooltipText {
+  color: #ff79c6;
+}
+
+.showMoreLess {
+  display: inline-block;
+  color: #ffb86c;
+}
+
+.showMoreLess:hover {
+  text-decoration: none;
+  color: #ffb86c;
 }
 
 h3 {
