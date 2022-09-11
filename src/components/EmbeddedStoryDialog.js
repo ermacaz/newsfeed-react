@@ -14,7 +14,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   const renderStoryImage = () => {
     return (
-      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px'}} src={story.media_url}/>
+      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px', maxHeight: '400px', maxWidth: '350px;'}} src={story.media_url}/>
     )
   }
   
