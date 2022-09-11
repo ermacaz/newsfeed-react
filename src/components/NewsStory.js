@@ -34,7 +34,7 @@ function NewsStory({story, setShowStoryDialog}) {
       )
     } else {
       return (
-        <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{sanitizeString(story.title)}</a>
+        <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{sanitizeString(story.title.substring(0,149))}</a>
       )
     }
   }

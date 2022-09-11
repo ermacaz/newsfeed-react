@@ -14,30 +14,24 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   const renderStoryImage = () => {
     return (
-      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px', maxHeight: '400px', maxWidth: '350px'}} src={story.media_url}/>
+      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px',  maxWidth: '350px'}} src={story.media_url}/>
     )
   }
   
-  const renderStory = () => {
+  const renderStory = (content) => {
     return (
       <div className={'storyContent'}>
-        {story.content.map((part, i) => {
+        {content.map((part, i) => {
           return(
             <p>{part}</p>
-          )  
+          )
         })}
       </div>
     )
   } 
   
-  return (
-    <Modal show={true} size="lg"  onHide={() => handleClose()}>
-      <Modal.Header closeButton  className={'title-color modal-dark'}>
-        <Modal.Title>
-          {story.title}
-          <div><a className={'storyDialogLink'} href={story.link} target="_blank" rel="noreferrer">View</a></div>
-        </Modal.Title>
-      </Modal.Header>
+  const renderStoryBody = (content) => {
+    return (
       <Modal.Body className={'modal-dark'}>
         {story.media_url &&
           <Row style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
@@ -48,10 +42,59 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         }
         <Row>
           <Col md={{span:8, offset: 2}}>
-            {renderStory()}
+            {renderStory(content)}
           </Col>
         </Row>
       </Modal.Body>
+    )
+  }
+  
+  const renderMediaBody = () => {
+    if (story.content.match(/vid/)) {
+      return (
+        <Modal.Body className={'modal-dark'}>
+          <Row>
+            <Col xs={12} style={{textAlign: 'center'}}>
+              <video style={{maxWidth: '350px'}} controls={'controls'} autoPlay={'autoplay'}
+                     loop={"loop"} muted>
+                <source src={story.content} type={'video/mp4'}></source>
+              </video>
+            </Col>
+          </Row>
+        </Modal.Body>
+      )
+    } else if (story.content.match(/pics/)) {
+      return (
+        <Modal.Body className={'modal-dark'}>
+          <Row>
+            <Col xs={12} style={{textAlign: 'center'}}>
+              <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px', maxWidth: '350px'}} src={story.content}/>
+            </Col>
+          </Row>
+        </Modal.Body>
+      )
+    } else {
+      renderStory([story.content])
+    }
+  }
+  
+  const renderBody = () => {
+    if (typeof story.content == 'string') {
+      return renderMediaBody();
+    } else {
+      return renderStoryBody(story.content);
+    }
+  }
+  
+  return (
+    <Modal show={true} size="lg"  onHide={() => handleClose()}>
+      <Modal.Header closeButton  className={'title-color modal-dark'}>
+        <Modal.Title>
+          {story.title}
+          <div><a className={'storyDialogLink'} href={story.link} target="_blank" rel="noreferrer">View</a></div>
+        </Modal.Title>
+      </Modal.Header>
+      {renderBody()}
     </Modal>
   )
 }
