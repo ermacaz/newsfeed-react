@@ -14,13 +14,13 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   const renderStoryImage = () => {
     return (
-      <img alt='primaryImage' style={{ margin: 'auto', display: 'block'}} src={story.media_url}/>
+      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px'}} src={story.media_url}/>
     )
   }
   
   const renderStory = () => {
     return (
-      <div>
+      <div className={'storyContent'}>
         {story.content.map((part, i) => {
           return(
             <p>{part}</p>
@@ -31,7 +31,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   } 
   
   return (
-    <Modal show={true} size="xl"  onHide={() => handleClose()}>
+    <Modal show={true} size="lg"  onHide={() => handleClose()}>
       <Modal.Header closeButton  className={'title-color modal-dark'}>
         <Modal.Title>
           {story.title}
@@ -47,7 +47,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
           </Row>
         }
         <Row>
-          <Col>
+          <Col md={{span:8, offset: 2}}>
             {renderStory()}
           </Col>
         </Row>

@@ -60,6 +60,10 @@ body {
   text-decoration: none;
 }
 
+.storyContent {
+  font-size: 1.25rem;
+}
+
 .showMoreLess {
   display: inline-block;
   color: #ffb86c;
