@@ -11,10 +11,20 @@ body {
   background-color: #282a36;
 }
 
+.modal-dark {
+  background-color: #282a36;
+  color: #f8f8f2
+}
+
 .newsSourceTitle {
   textDecoration: 'underline';
   cursor: pointer;
   color: #bd93f9
+}
+
+.title-color {
+  color: #bd93f9;
+  border-color: #6272a4;
 }
 
 .newsStoryHeadline {
@@ -30,6 +40,26 @@ body {
   color: #ff79c6;
 }
 
+.modal-header .close {
+  background-color: #ffb86c;
+  opacity: 1;
+  padding: 0.5rem 0.5rem;
+  margin: -0.5rem -0.5rem -0.5rem auto;
+  border-radius: 0.25rem;
+  width: 1em;
+  height: 1em;
+  box-sizing: content-box;
+}
+
+.storyDialogLink {
+  color: #ff79c6;
+}
+
+.storyDialogLink:hover {
+  color: #ff79c6;
+  text-decoration: none;
+}
+
 .showMoreLess {
   display: inline-block;
   color: #ffb86c;
@@ -38,10 +68,6 @@ body {
 .showMoreLess:hover {
   text-decoration: none;
   color: #ffb86c;
-}
-
-h3 {
-  color: lightblue;
 }
 
 hr {

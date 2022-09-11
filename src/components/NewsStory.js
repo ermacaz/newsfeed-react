@@ -3,36 +3,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import sanitizeString from "../helpers/sanitizeString";
 
-class NewsStory extends React.Component {
-  
-  constructor(...props) {
-    super(...props)
-    this.state = {
-      story: this.props.story,
-      togglable: this.props.togglable
-    }
-  }
+function NewsStory({story, setShowStoryDialog}) {
   
   
-  sanitizeString = str => {
-      let input = str.replace(/(<([^>]+)>)/ig, '').replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('\\u0026quot;','"').replaceAll('\\u0026amp;','&')
-      var doc = new DOMParser().parseFromString(input, "text/html");
-    debugger
-      return doc.documentElement.textContent;
-  }
-  
-  renderTooltip = props => (
-    <Tooltip id="button-tooltip"  {...props}>
-      <span className={'tooltipText'}>{this.sanitizeString(this.state.story.description)}</span>
+  const renderTooltip = () => (
+    <Tooltip id="button-tooltip" >
+      <span className={'tooltipText'}>{sanitizeString(story.description)}</span>
     </Tooltip>
   );
   
-  rowStyle = togglable => {
+  const rowStyle = () => {
     let display = 'flex';
-    if (togglable) {
-      display = 'none';
-    }
     return {
       paddingBottom: '0.5em',
       paddingTop: '0.5em',
@@ -44,71 +27,57 @@ class NewsStory extends React.Component {
     }
   }
   
-  render = () => {
-    const story = this.props.story
-    const togglable = this.state.togglable
-    if (story.media_url && story.media_url.length > 0) {
-      if (this.state.story.description && this.state.story.description.length > 0) {
-        return (
-          <Row style={this.rowStyle(togglable)}>
-            <Col xs={9}>
-              <OverlayTrigger
-                placement="top"
-                delay={{show: 50, hide: 300}}
-                overlay={this.renderTooltip}
-              >
-                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
-              </OverlayTrigger>
-            </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={this.sanitizeString(story.media_url)}></img></Col>
-          </Row>
-        )
-       
-      } else {
-        return (
-          <Row style={this.rowStyle(togglable)}>
-            <Col xs={9}>
-              <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
-            </Col>
-            <Col xs={2} style={imgColStyle}><img style={imageStyle} src={this.sanitizeString(story.media_url)}></img></Col>
-          </Row>
-        )
-      }
+  const storyLink = () => {
+    if (story.content) {
+      return (
+        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); setShowStoryDialog(story)}} href={'#/'+story.link}>{sanitizeString(story.title)}</a>
+      )
     } else {
-      if (this.state.story.description && this.state.story.description.length > 0) {
-        return (
-          <Row style={this.rowStyle(togglable)}>
-            <Col md={12}>
-              <OverlayTrigger
-                placement="top"
-                delay={{show: 50, hide: 300}}
-                overlay={this.renderTooltip}
-              >
-                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        )
-      } else {
-        return (
-          <Row style={this.rowStyle(togglable)}>
-            <Col md={12}>
-             
-                <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{this.sanitizeString(story.title)}</a>
-            </Col>
-          </Row>
-        )
-      }
+      return (
+        <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{sanitizeString(story.title)}</a>
+      )
     }
+  }
+  
+  const storyLinkWithOverlay = () => {
+    if (story.description && sanitizeString(story.description).length > 0) {
+      return(
+        <OverlayTrigger
+          placement="top"
+          delay={{show: 50, hide: 300}}
+          overlay={renderTooltip()}
+        >
+          {storyLink()}
+        </OverlayTrigger>
+      )
+    } else {
+      return storyLink()
+    }
+  }
+  
+  if (story.media_url && story.media_url.length > 0) {
+    return (
+      <Row style={rowStyle()}>
+        <Col xs={9}>
+          {storyLinkWithOverlay()}
+        </Col>
+        <Col xs={2} style={imgColStyle}><img style={imageStyle} alt={"story"} src={sanitizeString(story.media_url)}></img></Col>
+      </Row>
+    )
+  } else {
+      return (
+        <Row style={rowStyle()}>
+          <Col md={12}>
+            {storyLink()} 
+          </Col>
+        </Row>
+      )
   }
 }
 
+
 export default NewsStory
 
-
-const linkStyle = {
-
-}
 
 const imgColStyle = {
   float: 'right',

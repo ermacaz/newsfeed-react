@@ -1,8 +1,7 @@
-import logo from './logo.svg';
+import React from "react";
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.css';
 import NewsSourcesSet from "./components/NewsSourcesSet";
-import React from "react";
 import './App.css';
 
 function App() {

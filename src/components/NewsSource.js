@@ -2,84 +2,55 @@ import React from 'react';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Col'
 import NewsStory from './NewsStory'
-import ActionCable from "actioncable";
-import {API_WS_ROOT} from "../constants";
 import ShowHideSwitch from "./ShowHideSwitch";
 
-class NewsSource extends React.Component {
- 
+function NewsSource({source,  setShowStoryDialog}) {
+  const [hideExtraLinks, setHideExtraLinks] = React.useState(1);
   
-  handleClick = e => {
-    var win=window.open(this.state.source.source_url, '_blank');
+  const handleClick = e => {
+    var win=window.open(source.source_url, '_blank');
     win.focus();
   }
   
-  constructor(...props) {
-    super(...props)
-    this.showExtra = this.showExtra.bind(this)
-    this.hideExtra = this.hideExtra.bind(this)
-    this.state = {
-      source: this.props.source,
-      hideExtraLinks: this.props.hideExtraLinks
-    }
+  const showExtra = () => {
+    setHideExtraLinks(0)
   }
   
-  componentWillReceiveProps = nextProps => {
-    this.setState({source: nextProps.source})
-  };
+  const hideExtra = () => {
+    setHideExtraLinks(1)
+  }
   
-  showExtra = () => {
-    this.setState({
-      hideExtraLinks: '0'
+  const newsStories = stories => {
+    return stories.map(function(story, index) {
+      return (
+        <NewsStory key={index} story={story} setShowStoryDialog={setShowStoryDialog}/>
+      )
     })
   }
   
-  hideExtra = () => {
-    this.setState({
-      hideExtraLinks: '1'
-    })
+  let stories = [...source.stories];
+  if (hideExtraLinks !== 0) {
+    stories = stories.slice(0,9)
   }
+  return (
+    <Col md={4} style={colStyle}>
+      <Row style={storyDivStyle}>
+        <Col md={{span: 11, offset: 1}}>
+          <h3><span className={'newsSourceTitle'} onClick={handleClick} >{source.source_name}</span></h3>
+        </Col>
+      </Row>
+      <Row style={storyDivStyle}>
+        <Col md={12}>
+          <p>{newsStories(stories)}</p>
+          <p>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</p>
+        </Col>
+      </Row>
+    </Col>
+  )
   
-  render = () => {
-    let stories = this.state.source.stories;
-    if (this.state.hideExtraLinks !== '0') {
-      stories = stories.slice(0,9)
-    }
-    return (
-      <Col md={4} style={colStyle}>
-        <Row style={storyDivStyle}>
-          <Col md={{span: 11, offset: 1}}>
-            <h3><span className={'newsSourceTitle'} onClick={this.handleClick} >{this.state.source.source_name}</span></h3>
-          </Col>
-        </Row>
-        <Row style={storyDivStyle}>
-          <Col md={12}>
-            <p>{newsStories(stories)}</p>
-            <p>{<ShowHideSwitch showExtra={this.showExtra} hideExtra={this.hideExtra} sourceName={this.state.source.source_name}/>}</p>
-          </Col>
-        </Row>
-      </Col>
-    )
-  }
 }
+
 export default NewsSource;
-
-const newsStories = stories => {
-  return stories.map(function(story, index) {
-    return (
-      <NewsStory key={index} story={story} togglable={false}/>
-    )
-  })
-}
-
-const newsStoriesTogglable = stories => {
-  return stories.map(function(story, index) {
-    return (
-      <NewsStory key={index} story={story} togglable={true}/>
-    )
-  })
-}
-
 
 const colStyle = {
   marginBottom: '3em'
