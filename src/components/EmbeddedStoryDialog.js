@@ -7,6 +7,15 @@ import sanitizeString from "../helpers/sanitizeString";
 
 function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
+  const onBackButtonEvent = (e) => {
+    e.preventDefault();
+    setShowStoryDialog(0);
+  }
+  
+  useEffect(() => {
+    window.onpopstate = onBackButtonEvent;
+  }, [])
+  
   const handleClose = () => {
     window.history.replaceState(null, "Ryori", "/");
     setShowStoryDialog(0)
