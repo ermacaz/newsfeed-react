@@ -21,9 +21,9 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     setShowStoryDialog(0)
   }
   
-  const renderStoryImage = () => {
+  const renderImage = (src) => {
     return (
-      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px',  maxWidth: '350px'}} src={story.media_url}/>
+      <img alt='content' style={{ margin: 'auto', display: 'block', minHeight: '250px',  maxWidth: '350px'}} src={src}/>
     )
   }
   
@@ -31,9 +31,16 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     return (
       <div className={'storyContent'}>
         {content.map((part, i) => {
-          return(
-            <p>{part}</p>
-          )
+          if(part['img']) {
+            return(
+              renderImage(part['img'])
+            )
+          } else if (part['text']) {
+            return(
+              <p>{part['text']}</p>
+            )
+          }
+          
         })}
       </div>
     )
@@ -45,7 +52,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         {story.media_url &&
           <Row style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
             <Col xs={{span: 12}}>
-              {renderStoryImage()}
+              {renderImage(story.media_url)}
             </Col>
           </Row>
         }
