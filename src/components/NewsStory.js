@@ -28,13 +28,17 @@ function NewsStory({story, setShowStoryDialog}) {
   }
   
   const storyLink = () => {
+    let title = story.title
+    if (story.title.length > 125) {
+      title = story.title.substring(0,122) + '...'
+    }
     if (story.content) {
       return (
-        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); setShowStoryDialog(story)}} href={'#/'+story.link}>{sanitizeString(story.title)}</a>
+        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); setShowStoryDialog(story)}} href={'#/'+story.link}>{sanitizeString(title)}</a>
       )
     } else {
       return (
-        <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{sanitizeString(story.title.substring(0,149))}</a>
+        <a className="hover-info newsStoryHeadline" href={story.link} target="_blank" rel="noreferrer">{sanitizeString(title)}</a>
       )
     }
   }
@@ -55,13 +59,13 @@ function NewsStory({story, setShowStoryDialog}) {
     }
   }
   
-  if (story.media_url && story.media_url.length > 0) {
+  if (story.media_url_thumb && story.media_url_thumb.length > 0) {
     return (
       <Row style={rowStyle()}>
         <Col xs={9}>
           {storyLinkWithOverlay()}
         </Col>
-        <Col xs={2} style={imgColStyle}><img style={imageStyle} alt={"story"} src={sanitizeString(story.media_url)}></img></Col>
+        <Col xs={2} style={imgColStyle}><img style={imageStyle} alt={"story"} src={sanitizeString(story.media_url_thumb)}></img></Col>
       </Row>
     )
   } else {
@@ -86,7 +90,7 @@ const imgColStyle = {
 
 const imageStyle = {
   maxHeight: '4em',
-  maxWidth: '6em',
+  // maxWidth: '6em',
   verticalAlign: 'center'
   
 }
