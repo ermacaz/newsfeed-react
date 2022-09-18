@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import sanitizeString from "../helpers/sanitizeString";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
 function EmbeddedStoryDialog({story, setShowStoryDialog}) {
@@ -23,7 +24,10 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   const renderStoryImage = () => {
     return (
-      <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px',  maxWidth: '350px'}} src={story.media_url}/>
+      <LazyLoadImage src={story.media_url}
+                     style={imageStyle}
+                     alt="story"
+      />
     )
   }
   
@@ -77,7 +81,10 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         <Modal.Body className={'modal-dark'}>
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
-              <img alt='primaryImage' style={{ margin: 'auto', display: 'block', minHeight: '250px', maxWidth: '350px'}} src={story.content}/>
+              <LazyLoadImage src={story.content}
+                             style={imageStyle}
+                             alt="story"
+              />
             </Col>
           </Row>
         </Modal.Body>
@@ -108,3 +115,10 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   )
 }
 export default EmbeddedStoryDialog;
+
+const imageStyle = { 
+  margin: 'auto',
+  display: 'block',
+  minHeight: '250px',
+  maxWidth: '350px'
+}

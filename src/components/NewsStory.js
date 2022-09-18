@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import sanitizeString from "../helpers/sanitizeString";
 
 function NewsStory({story, setShowStoryDialog}) {
@@ -65,7 +66,12 @@ function NewsStory({story, setShowStoryDialog}) {
         <Col xs={9}>
           {storyLinkWithOverlay()}
         </Col>
-        <Col xs={2} style={imgColStyle}><img style={imageStyle} alt={"story"} src={sanitizeString(story.media_url_thumb)}></img></Col>
+        <Col xs={2} style={imgColStyle}>
+          <LazyLoadImage src={story.media_url_thumb}
+                         style={imageStyle}
+                         alt="story"
+          />
+        </Col>
       </Row>
     )
   } else {

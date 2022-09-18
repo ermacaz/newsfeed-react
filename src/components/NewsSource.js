@@ -42,7 +42,7 @@ function NewsSource({source,  setShowStoryDialog}) {
       <Row style={storyDivStyle}>
         <Col md={12}>
           <p>{newsStories(stories)}</p>
-          <p>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</p>
+          <div>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</div>
         </Col>
       </Row>
     </Col>
