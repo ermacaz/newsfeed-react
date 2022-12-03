@@ -16,6 +16,10 @@ body {
   color: #f8f8f2
 }
 
+.connection-error {
+  color: #ff5555
+}
+
 .newsSourceTitle {
   textDecoration: 'underline';
   cursor: pointer;

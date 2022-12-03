@@ -37,12 +37,13 @@ function NewsStory({story, setShowStoryDialog}) {
   
   const storyLink = () => {
     let title = story.title
+    const linkHash = md5(story.link)
     if (story.title.length > 125) {
       title = story.title.substring(0,122) + '...'
     }
     if (story.content) {
       return (
-        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); handleShowStory(story);}} href={'#/'+story.link}>{sanitizeString(title)}</a>
+        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); handleShowStory(story);}} href={'#/'+linkHash}>{sanitizeString(title)}</a>
       )
     } else {
       return (

@@ -41,7 +41,7 @@ function NewsSource({source,  setShowStoryDialog}) {
       </Row>
       <Row style={storyDivStyle}>
         <Col md={12}>
-          <p>{newsStories(stories)}</p>
+          <div>{newsStories(stories)}</div>
           <div>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</div>
         </Col>
       </Row>
@@ -58,6 +58,6 @@ const colStyle = {
 
 const storyDivStyle = {
   lineHeight: '1em',
-  height: '5em;',
+  minHeight: '5em',
   verticalAlign: 'center'
 }

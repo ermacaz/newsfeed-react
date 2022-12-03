@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import sanitizeString from "../helpers/sanitizeString";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
@@ -15,7 +14,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   useEffect(() => {
     window.onpopstate = onBackButtonEvent;
-  }, [])
+  })
   
   const handleClose = () => {
     window.history.replaceState(null, "Newsfeed", "/");
