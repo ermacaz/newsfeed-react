@@ -23,8 +23,9 @@ function NewsStory({story, setShowStoryDialog}) {
       paddingTop: '0.5em',
       borderBottom: "1px solid #6272a4",
       display: display,
+      width: '100%',
       alignItems: 'center',
-      minHeight: '5em',
+      height: '5em',
       color: 'white'
     }
   }

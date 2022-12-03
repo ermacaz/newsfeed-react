@@ -45,15 +45,15 @@ class ShowHideSwitch extends React.Component {
     if (showLess === '0') {
       return (
         <Row style={rowStyle}>
-          <Col xs={11}>
-            <ShowLessLink handler = {this.showLess}/>
-          </Col>
-        </Row>
+          <Col md={12} style={colStyle}>
+          <ShowLessLink handler = {this.showLess}/>
+        </Col>
+      </Row>
       )
     } else {
       return (
         <Row style={rowStyle}>
-          <Col xs={11}>
+          <Col md={12} style={colStyle}>
             <ShowMoreLink handler = {this.showMore}/>
           </Col>
         </Row>
@@ -64,11 +64,15 @@ class ShowHideSwitch extends React.Component {
 
 export default ShowHideSwitch
 
-const rowStyle = {
+const colStyle = {
   paddingBottom: '0.5em',
   paddingTop: '0.5em',
   borderBottom: "1px solid #f1fa8c",
   display: 'flex',
   alignItems: 'center',
+  width: '100%'
 }
 
+const rowStyle = {
+  width: '100%'
+}

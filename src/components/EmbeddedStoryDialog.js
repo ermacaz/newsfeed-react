@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {LazyLoadImage} from "react-lazy-load-image-component";
+import md5 from "md5";
 
 
 function EmbeddedStoryDialog({story, setShowStoryDialog}) {
@@ -35,7 +36,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
       <div className={'storyContent'}>
         {content.map((part, i) => {
           return(
-            <p>{part}</p>
+            <p key={md5(story.link) + '-' + i}>{part}</p>
           )
         })}
       </div>

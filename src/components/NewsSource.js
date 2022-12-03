@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Col'
 import NewsStory from './NewsStory'
 import ShowHideSwitch from "./ShowHideSwitch";
+import Stack from "react-bootstrap/Stack";
 
 function NewsSource({source,  setShowStoryDialog}) {
   const [hideExtraLinks, setHideExtraLinks] = React.useState(1);
@@ -33,18 +34,12 @@ function NewsSource({source,  setShowStoryDialog}) {
     stories = stories.slice(0,9)
   }
   return (
-    <Col md={4} style={colStyle}>
-      <Row style={storyDivStyle}>
-        <Col md={{span: 11, offset: 1}}>
-          <h3><span className={'newsSourceTitle'} onClick={handleClick} >{source.source_name}</span></h3>
-        </Col>
-      </Row>
-      <Row style={storyDivStyle}>
-        <Col md={12}>
-          <div>{newsStories(stories)}</div>
-          <div>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</div>
-        </Col>
-      </Row>
+    <Col md={4}>
+      <h3 style={{marginTop: '1em'}}><span className={'newsSourceTitle'} onClick={handleClick} >{source.source_name}</span></h3>
+      <Stack gap={1}>
+        {newsStories(stories)}
+        <div>{<ShowHideSwitch showExtra={showExtra} hideExtra={hideExtra} sourceName={source.source_name}/>}</div>
+      </Stack>
     </Col>
   )
   

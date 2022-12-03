@@ -44,7 +44,11 @@ body {
   color: #ff79c6;
 }
 
-.modal-header .close {
+.modal-header.title-color {
+  align-items: start;
+}
+
+.modal-header .btn-close {
   background-color: #ffb86c;
   opacity: 1;
   padding: 0.5rem 0.5rem;
@@ -53,6 +57,10 @@ body {
   width: 1em;
   height: 1em;
   box-sizing: content-box;
+}
+
+.modal-header .btn-close:focus {
+  box-shadow: 0 0 0 0.2rem rgb(252, 159, 62);
 }
 
 .storyDialogLink {
@@ -91,4 +99,8 @@ hr {
 
 a {
   font-size: 16px;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
 }
