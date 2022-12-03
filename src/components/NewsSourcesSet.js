@@ -41,6 +41,20 @@ function NewsSourcesSet() {
     fetch(`${API_ROOT}/news_sources`)
       .then(res => res.json())
       .then(newsSources => setNewsSources(newsSources))
+      .finally(() => {
+        parseUrlForStory()
+      })
+  }
+  
+  const parseUrlForStory = () => {
+    if (window.location.hash && window.location.hash.match(/\#\//)) {
+      const storyHash = window.location.hash.match(/\#\/(.*)$/)[1];
+      fetch(`${API_ROOT}/news_sources/get_story?link_hash=${storyHash}`)
+        .then(res => res.json())
+        .then(story => {
+          setShowStoryDialog(story)
+        })
+    }
   }
   
   useEffect(() => {

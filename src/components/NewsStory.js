@@ -5,6 +5,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import sanitizeString from "../helpers/sanitizeString";
+import md5 from 'md5';
 
 function NewsStory({story, setShowStoryDialog}) {
   
@@ -28,6 +29,12 @@ function NewsStory({story, setShowStoryDialog}) {
     }
   }
   
+  const handleShowStory = (story) => {
+    const linkHash = md5(story.link)
+    window.history.replaceState(null, linkHash, "#/" + linkHash);
+    setShowStoryDialog(story);
+  }
+  
   const storyLink = () => {
     let title = story.title
     if (story.title.length > 125) {
@@ -35,7 +42,7 @@ function NewsStory({story, setShowStoryDialog}) {
     }
     if (story.content) {
       return (
-        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); setShowStoryDialog(story)}} href={'#/'+story.link}>{sanitizeString(title)}</a>
+        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); handleShowStory(story);}} href={'#/'+story.link}>{sanitizeString(title)}</a>
       )
     } else {
       return (

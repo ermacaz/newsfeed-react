@@ -18,7 +18,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   }, [])
   
   const handleClose = () => {
-    window.history.replaceState(null, "Ryori", "/");
+    window.history.replaceState(null, "Newsfeed", "/");
     setShowStoryDialog(0)
   }
   
