@@ -5,7 +5,9 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import sanitizeString from "../helpers/sanitizeString";
-import md5 from 'md5';
+import generateStoryUrl from "../helpers/generateStoryUrl";
+import md5 from "md5";
+import {API_ROOT} from "../constants";
 
 function NewsStory({story, setShowStoryDialog}) {
   
@@ -18,19 +20,22 @@ function NewsStory({story, setShowStoryDialog}) {
   
   const handleShowStory = (story) => {
     const linkHash = md5(story.link)
-    window.history.replaceState(null, linkHash, "#/" + story.source + '/' + linkHash);
-    setShowStoryDialog(story);
+    window.history.replaceState(null, linkHash, generateStoryUrl(story));
+    fetch(`${API_ROOT}/news_sources/${story.source}/story/${linkHash}`)
+      .then(res => res.json())
+      .then(story => {
+        setShowStoryDialog(story)
+      })
   }
   
   const storyLink = () => {
     let title = story.title
-    const linkHash = md5(story.link)
     if (story.title.length > 125) {
       title = story.title.substring(0,122) + '...'
     }
     if (story.content) {
       return (
-        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); handleShowStory(story);}} href={'#/'+linkHash}>{sanitizeString(title)}</a>
+        <a className="hover-info newsStoryHeadline embedStoryLink" onClick={(e) => { e.preventDefault(); handleShowStory(story);}} href={generateStoryUrl(story)}>{sanitizeString(title)}</a>
       )
     } else {
       return (
