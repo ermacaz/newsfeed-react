@@ -18,7 +18,7 @@ function NewsStory({story, setShowStoryDialog}) {
   
   const handleShowStory = (story) => {
     const linkHash = md5(story.link)
-    window.history.replaceState(null, linkHash, "#/" + linkHash);
+    window.history.replaceState(null, linkHash, "#/" + story.source + '/' + linkHash);
     setShowStoryDialog(story);
   }
   

@@ -51,8 +51,8 @@ function NewsSourcesSet() {
   
   const parseUrlForStory = () => {
     if (window.location.hash && window.location.hash.match(/#\//)) {
-      const storyHash = window.location.hash.match(/#\/(.*)$/)[1];
-      fetch(`${API_ROOT}/news_sources/get_story?link_hash=${storyHash}`)
+      const parts = window.location.hash.split("/")
+      fetch(`${API_ROOT}/news_sources/${parts[1]}/story/${parts[2]}`)
         .then(res => res.json())
         .then(story => {
           setShowStoryDialog(story)
