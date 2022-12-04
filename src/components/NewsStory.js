@@ -16,20 +16,6 @@ function NewsStory({story, setShowStoryDialog}) {
     </Tooltip>
   );
   
-  const rowStyle = () => {
-    let display = 'flex';
-    return {
-      paddingBottom: '0.5em',
-      paddingTop: '0.5em',
-      borderBottom: "1px solid #6272a4",
-      display: display,
-      width: '100%',
-      alignItems: 'center',
-      height: '5em',
-      color: 'white'
-    }
-  }
-  
   const handleShowStory = (story) => {
     const linkHash = md5(story.link)
     window.history.replaceState(null, linkHash, "#/" + linkHash);
@@ -71,8 +57,8 @@ function NewsStory({story, setShowStoryDialog}) {
   
   if (story.media_url_thumb && story.media_url_thumb.length > 0) {
     return (
-      <Row style={rowStyle()}>
-        <Col xs={9}>
+      <Row style={rowStyle}>
+        <Col xs={9} style={textColStyle}>
           {storyLinkWithOverlay()}
         </Col>
         <Col xs={2} style={imgColStyle}>
@@ -85,7 +71,7 @@ function NewsStory({story, setShowStoryDialog}) {
     )
   } else {
       return (
-        <Row style={rowStyle()}>
+        <Row style={rowStyle}>
           <Col md={12}>
             {storyLink()} 
           </Col>
@@ -108,5 +94,21 @@ const imageStyle = {
   // maxWidth: '6em',
   verticalAlign: 'center'
   
+}
+
+const textColStyle = {
+  height: '100%',
+  overflow: 'hidden'
+}
+
+const rowStyle = {
+  paddingBottom: '0.5em',
+  paddingTop: '0.5em',
+  borderBottom: "1px solid #6272a4",
+  display: 'flex',
+  width: '100%',
+  alignItems: 'center',
+  height: '5.7em',
+  color: 'white'
 }
 
