@@ -1,6 +1,5 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Col'
 import NewsStory from './NewsStory'
 import ShowHideSwitch from "./ShowHideSwitch";
 import Stack from "react-bootstrap/Stack";
@@ -46,13 +45,3 @@ function NewsSource({source,  setShowStoryDialog}) {
 }
 
 export default NewsSource;
-
-const colStyle = {
-  marginBottom: '3em'
-}
-
-const storyDivStyle = {
-  lineHeight: '1em',
-  minHeight: '5em',
-  verticalAlign: 'center'
-}
