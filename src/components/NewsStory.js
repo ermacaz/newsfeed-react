@@ -62,17 +62,17 @@ function NewsStory({story, setShowStoryDialog}) {
   
   if (story.media_url_thumb && story.media_url_thumb.length > 0) {
     return (
-      <Row style={rowStyle}>
-        <Col xs={9} style={textColStyle}>
+      <div style={flexContainerStyle}>
+        <div style={textColStyle}>
           {storyLinkWithOverlay()}
-        </Col>
-        <Col xs={2} style={imgColStyle}>
+        </div>
+        <div style={imgColStyle}>
           <LazyLoadImage src={story.media_url_thumb}
                          style={imageStyle}
                          alt="story"
           />
-        </Col>
-      </Row>
+        </div>
+      </div>
     )
   } else {
       return (
@@ -90,7 +90,6 @@ export default NewsStory
 
 
 const imgColStyle = {
-  float: 'right',
   verticalAlign: 'center'
 }
 
@@ -98,12 +97,23 @@ const imageStyle = {
   maxHeight: '4em',
   // maxWidth: '6em',
   verticalAlign: 'center'
-  
 }
 
 const textColStyle = {
-  height: '100%',
+  width: '75%',
+  marginRight: '1em',
   overflow: 'hidden'
+}
+
+const flexContainerStyle = {
+  display: 'flex',
+  width: '100%',
+  height: '5.7em',
+  color: 'white',
+  paddingBottom: '0.5em',
+  paddingTop: '0.5em',
+  borderBottom: "1px solid #6272a4",
+  alignItems: 'center'
 }
 
 const rowStyle = {
