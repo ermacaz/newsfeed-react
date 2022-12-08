@@ -62,7 +62,7 @@ function NewsStory({story, setShowStoryDialog}) {
   
   if (story.media_url_thumb && story.media_url_thumb.length > 0) {
     return (
-      <div style={flexContainerStyle}>
+      <div className={"overflow-hidden"} style={flexContainerStyle}>
         <div style={textColStyle}>
           {storyLinkWithOverlay()}
         </div>
@@ -76,7 +76,7 @@ function NewsStory({story, setShowStoryDialog}) {
     )
   } else {
       return (
-        <Row style={rowStyle}>
+        <Row className={'overflow-hidden'} style={rowStyle}>
           <Col md={12}>
             {storyLink()} 
           </Col>
@@ -100,15 +100,19 @@ const imageStyle = {
 }
 
 const textColStyle = {
+  height: '100%',
   width: '75%',
   marginRight: '1em',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  marginTop: '1em',
+  marginBottom: '1em'
 }
 
 const flexContainerStyle = {
   display: 'flex',
   width: '100%',
   height: '5.7em',
+  lineHeight: '1.6em',
   color: 'white',
   paddingBottom: '0.5em',
   paddingTop: '0.5em',
@@ -124,6 +128,7 @@ const rowStyle = {
   width: '100%',
   alignItems: 'center',
   height: '5.7em',
+  lineHeight: '1.6em',
   color: 'white'
 }
 
