@@ -105,7 +105,8 @@ const textColStyle = {
   marginRight: '1em',
   overflow: 'hidden',
   marginTop: '1em',
-  marginBottom: '1em'
+  marginBottom: '1em',
+  display: 'flex'
 }
 
 const flexContainerStyle = {
