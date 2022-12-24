@@ -106,7 +106,9 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     <Modal show={true} size="lg"  onHide={() => handleClose()}>
       <Modal.Header closeButton  className={'title-color modal-dark'}>
         <Modal.Title>
-          {story.title}
+          <div style={{marginLeft: '2.5rem'}}>
+            {story.title}
+          </div>
           <div><a className={'storyDialogLink'} href={story.link} target="_blank" rel="noreferrer">View</a></div>
         </Modal.Title>
       </Modal.Header>

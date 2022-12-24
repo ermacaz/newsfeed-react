@@ -57,6 +57,7 @@ body {
   width: 1em;
   height: 1em;
   box-sizing: content-box;
+  position: absolute;
 }
 
 .modal-header .btn-close:focus {
