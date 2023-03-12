@@ -81,7 +81,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         <Modal.Body className={'modal-dark'}>
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
-              <LazyLoadImage src={story.content}
+              <LazyLoadImage src={story.media_url}
                              style={imageStyle}
                              alt="story"
               />
