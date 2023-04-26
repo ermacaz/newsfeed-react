@@ -63,7 +63,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   }
   
   const renderMediaBody = () => {
-    if (story.content.match(/vid/)) {
+    if (story.content.match(/vid|mp4$/)) {
       return (
         <Modal.Body className={'modal-dark'}>
           <Row>
