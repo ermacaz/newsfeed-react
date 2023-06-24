@@ -29,7 +29,11 @@ function NewsSourcesSet() {
   }
   
   const handleReceived = (message) => {
+    const currentStory = showStoryDialog
     setNewsSources((message))
+    if (currentStory !== 0) {
+      setShowStoryDialog(currentStory)
+    }
   }
   
   if (API_ROOT.match(/^https/)) {
