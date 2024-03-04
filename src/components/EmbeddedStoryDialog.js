@@ -7,7 +7,8 @@ import md5 from "md5";
 
 
 function EmbeddedStoryDialog({story, setShowStoryDialog}) {
-  
+  const [showQuotes,setShowQuotes] = React.useState(false);
+  const [quoteColor,setQuoteColor]   = React.useState("#6272A4");
   const onBackButtonEvent = (e) => {
     e.preventDefault();
     setShowStoryDialog(0);
@@ -31,6 +32,27 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     )
   }
   
+  const renderStoryWithQuotes = (content) => {
+    let parts = []
+    content.forEach((part, i) => {
+      const str = `${part}`
+      parts.push(str)
+    })
+    return (
+      <div className={'storyContent'}>
+        {parts.map((part, i) => {
+          return(
+            <>
+              >{part}
+              <br/>>
+              <br/>
+            </>
+          )
+        })}
+      </div>
+    )
+  }
+  
   const renderStory = (content) => {
     return (
       <div className={'storyContent'}>
@@ -41,11 +63,18 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         })}
       </div>
     )
-  } 
+  }
+  
+  const toggleQuote = () => {
+    const qc = showQuotes ? "#6272A4" : "#F1FA8C" 
+    setShowQuotes(!showQuotes)
+    setQuoteColor(qc)
+  }
   
   const renderStoryBody = (content) => {
     return (
       <Modal.Body className={'modal-dark'}>
+        <div style={{float: "right", color: quoteColor}}><span style={{cursor: "pointer"}} onClick={(e) => { e.preventDefault(); toggleQuote(true);}}>Quote</span></div>
         {story.media_url &&
           <Row style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
             <Col xs={{span: 12}}>
@@ -54,8 +83,9 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
           </Row>
         }
         <Row>
-          <Col md={{span:8, offset: 2}}>
-            {renderStory(content)}
+          <Col md={{span: 8, offset: 2}}>
+            {!showQuotes && renderStory(content)}
+            {showQuotes && renderStoryWithQuotes(content)}
           </Col>
         </Row>
       </Modal.Body>
@@ -103,13 +133,18 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   }
   
   return (
-    <Modal show={true} size="lg"  onHide={() => handleClose()}>
-      <Modal.Header closeButton  className={'title-color modal-dark'}>
+    <Modal show={true} size="lg" onHide={() => handleClose()}>
+      <Modal.Header closeButton className={'title-color modal-dark'}>
         <Modal.Title>
           <div style={{marginLeft: '2.5rem'}}>
             {story.title}
           </div>
-          <div><a className={'storyDialogLink'} href={story.link} target="_blank" rel="noreferrer">View</a></div>
+          <div>
+            <div style={{display: "inline", verticalAlign: 'middle'}}><a className={'storyDialogLink'} href={story.link}
+                                                                         target="_blank" rel="noreferrer">View</a></div>
+            <div style={{display: "inline", color: '#6272A4'}}><small
+              style={{fontSize: '0.4em'}}>&nbsp;&nbsp;{story.source}</small></div>
+          </div>
         </Modal.Title>
       </Modal.Header>
       {renderBody()}
