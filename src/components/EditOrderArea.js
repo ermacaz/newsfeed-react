@@ -3,8 +3,10 @@
 import React from "react";
 import GridLayout from "react-grid-layout";
 import {API_ROOT} from "../constants";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 function EditOrderArea({toggleOrderScreen, newsSources}) {
-  let layout = newsSources.sort((a, b) => a.list_number - b.list_number).map((newsSource, index) => {
+  let layout = newsSources.sort((a, b) => a.list_order - b.list_order).map((newsSource, index) => {
     return {
       i: newsSource.source_id.toString(), // assuming id is unique
       x: index % 3, // will give values 0, 1, 2 for each row

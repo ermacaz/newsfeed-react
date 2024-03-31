@@ -6,9 +6,8 @@ import Row from 'react-bootstrap/Row';
 import EditOrderArea from "./EditOrderArea";
 
 import NewsSource from './NewsSource';
-import ActionCable from "actioncable";
 import EmbeddedStoryDialog from "./EmbeddedStoryDialog";
-import {API_ROOT, API_WS_ROOT} from "../constants";
+import {API_ROOT} from "../constants";
 
 
 function NewsSourcesSet() {
@@ -35,19 +34,6 @@ function NewsSourcesSet() {
         </Row>
       )
     })
-  }
-  
-  const handleReceived = (message) => {
-    const currentStory = showStoryDialog
-    setNewsSources((message))
-    if (currentStory !== 0) {
-      setShowStoryDialog(currentStory)
-    }
-  }
-  
-  if (API_ROOT.match(/^https/)) {
-    const cable = ActionCable.createConsumer(`${API_WS_ROOT}`)
-    cable.subscriptions.create('NewsSourcesChannel', {received: (response) => {handleReceived(response)}})
   }
   
   const getNewsSourceData = () => {
