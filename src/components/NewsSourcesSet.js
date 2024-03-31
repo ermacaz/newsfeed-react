@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 
 import Container from 'react-bootstrap/Container';
+import Col from "react-bootstrap/Col";
 import Row from 'react-bootstrap/Row';
+import EditOrderArea from "./EditOrderArea";
+
 import NewsSource from './NewsSource';
 import ActionCable from "actioncable";
 import EmbeddedStoryDialog from "./EmbeddedStoryDialog";
@@ -12,6 +15,12 @@ function NewsSourcesSet() {
   const [newsSources, setNewsSources] = React.useState([]);
   const [showStoryDialog, setShowStoryDialog] = React.useState(0);
   const [showConnectionError, setShowConnectionError] = React.useState(0);
+  const [editOrderScreen, setEditOrderScreen] = React.useState(0);
+  
+  const toggleOrderScreen = () => {
+    setEditOrderScreen(!editOrderScreen)
+  };
+  
   const newsSourceElements = newsSourceTrio => {
     return newsSourceTrio.map(function(source) {
       return <NewsSource key={source.source_name} source={source} setShowStoryDialog={setShowStoryDialog}/>
@@ -64,9 +73,31 @@ function NewsSourcesSet() {
     }
   }
   
+  const renderOrderLink = () => {
+    return (
+      <Row>
+        <Col md={{span: 1, offset: 11}}>
+          <span className="change_order_link" onClick={toggleOrderScreen}>
+            {!editOrderScreen && "Change Order"}
+            {editOrderScreen && "Return"}
+          </span>
+        </Col>
+      </Row>
+    )
+  }
+  
   useEffect(() => {
     getNewsSourceData()
   }, [])
+  
+  if (editOrderScreen) {
+    return (
+      <>
+        {renderOrderLink()}
+        <EditOrderArea toggleOrderScreen={toggleOrderScreen} newsSources={newsSources}/>
+      </>
+    )
+  } 
   
   if (showConnectionError !== 0) {
     return(
@@ -82,6 +113,7 @@ function NewsSourcesSet() {
     if (newsSourcesSet.length > 0) {
       return (
         <div>
+          {renderOrderLink()}
           {showSources(newsSourcesSet)}
           {showStoryDialog !== 0 &&
             <EmbeddedStoryDialog story={showStoryDialog} setShowStoryDialog={setShowStoryDialog}/>

@@ -26,6 +26,15 @@ body {
   color: #bd93f9
 }
 
+.change_order_link {
+  color: #F1FA8C;
+  cursor: pointer;
+}
+
+.edit-order-entry {
+  color: white;
+}
+
 .title-color {
   color: #bd93f9;
   border-color: #6272a4;
