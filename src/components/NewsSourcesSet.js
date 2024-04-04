@@ -14,7 +14,7 @@ function NewsSourcesSet() {
   const [newsSources, setNewsSources] = React.useState([]);
   const [showStoryDialog, setShowStoryDialog] = React.useState(0);
   const [showConnectionError, setShowConnectionError] = React.useState(0);
-  const [editOrderScreen, setEditOrderScreen] = React.useState(0);
+  const [editOrderScreen, setEditOrderScreen] = React.useState(false);
   
   const toggleOrderScreen = () => {
     setEditOrderScreen(!editOrderScreen)
@@ -60,16 +60,27 @@ function NewsSourcesSet() {
   }
   
   const renderOrderLink = () => {
-    return (
-      <Row>
-        <Col md={{span: 1, offset: 11}}>
-          <span className="change_order_link" onClick={toggleOrderScreen}>
-            {!editOrderScreen && "Change Order"}
-            {editOrderScreen && "Return"}
-          </span>
-        </Col>
-      </Row>
-    )
+    if (editOrderScreen) {
+      return (
+        <Row>
+          <Col md={{span: 1, offset: 11}}>
+            <span className="change_order_link" onClick={toggleOrderScreen}>
+              Return
+            </span>
+          </Col>
+        </Row>
+      )
+    } else {
+      return (
+        <Row>
+          <Col md={{span: 1, offset: 11}}>
+            <span className="change_order_link" onClick={toggleOrderScreen}>
+              Change Order
+            </span>
+          </Col>
+        </Row>
+      )
+    }
   }
   
   useEffect(() => {
@@ -99,11 +110,11 @@ function NewsSourcesSet() {
     if (newsSourcesSet.length > 0) {
       return (
         <div>
-          {renderOrderLink()}
           {showSources(newsSourcesSet)}
           {showStoryDialog !== 0 &&
             <EmbeddedStoryDialog story={showStoryDialog} setShowStoryDialog={setShowStoryDialog}/>
           }
+          {renderOrderLink()}
         </div>
       )
     } else {

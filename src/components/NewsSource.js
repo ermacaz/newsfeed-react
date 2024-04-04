@@ -8,7 +8,7 @@ function NewsSource({source,  setShowStoryDialog}) {
   const [hideExtraLinks, setHideExtraLinks] = React.useState(1);
   
   const handleClick = e => {
-    var win=window.open(source.source_url, '_blank');
+    const win=window.open(source.source_url, '_blank');
     win.focus();
   }
   
