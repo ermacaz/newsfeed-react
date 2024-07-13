@@ -16,6 +16,39 @@ function NewsSourcesSet() {
   const [showConnectionError, setShowConnectionError] = React.useState(0);
   const [editOrderScreen, setEditOrderScreen] = React.useState(false);
   
+  
+  useEffect(() => {
+    let ogTags = [];
+    if (showStoryDialog !== 0) {
+      ogTags = [
+        { property: 'og:title', content: showStoryDialog.title },
+        { property: 'og:description', content: showStoryDialog.description },
+        { property: 'og:image', content: showStoryDialog.media_url },
+        { property: 'og:url', content: `https://newsfeed.ermacaz.com/#/${showStoryDialog.source}/${showStoryDialog.link}` },
+      ];
+    } else {
+      ogTags = [
+        { property: 'og:title', content: 'NewsFeed' },
+        { property: 'og:description', content: '' },
+        { property: 'og:image', content: '' },
+        { property: 'og:url', content: 'https://newsfeed.ermacaz.com' },
+      ];
+    }
+    
+    ogTags.forEach(tag => {
+      const existingTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (existingTag) {
+        existingTag.setAttribute('content', tag.content);
+      } else {
+        const newTag = document.createElement('meta');
+        newTag.setAttribute('property', tag.property);
+        newTag.setAttribute('content', tag.content);
+        document.head.appendChild(newTag);
+      }
+    });
+  }, [showStoryDialog]);
+  
+  
   const toggleOrderScreen = () => {
     setEditOrderScreen(!editOrderScreen)
   };
