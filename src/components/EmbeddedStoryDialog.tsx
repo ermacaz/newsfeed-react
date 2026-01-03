@@ -5,13 +5,27 @@ import Col from 'react-bootstrap/Col';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import md5 from "md5";
 
+interface Story {
+  title: string;
+  link: string;
+  source: string;
+  media_url?: string;
+  media_url_thumb?: string;
+  content?: string | string[];
+  description?: string;
+}
 
-function EmbeddedStoryDialog({story, setShowStoryDialog}) {
+interface EmbeddedStoryDialogProps {
+  story: Story;
+  setShowStoryDialog: (value: Story | null) => void;
+}
+
+function EmbeddedStoryDialog({story, setShowStoryDialog}: EmbeddedStoryDialogProps): React.ReactElement {
   const [showQuotes,setShowQuotes] = React.useState(false);
   const [quoteColor,setQuoteColor]   = React.useState("#6272A4");
-  const onBackButtonEvent = (e) => {
+  const onBackButtonEvent = (e: PopStateEvent) => {
     e.preventDefault();
-    setShowStoryDialog(0);
+    setShowStoryDialog(null);
   }
   
   useEffect(() => {
@@ -20,20 +34,20 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   
   const handleClose = () => {
     window.history.replaceState(null, "Newsfeed", "/");
-    setShowStoryDialog(0)
+    setShowStoryDialog(null)
   }
   
   const renderStoryImage = () => {
     return (
-      <LazyLoadImage src={story.media_url}
+      <LazyLoadImage src={story.media_url || ''}
                      style={imageStyle}
                      alt="story"
       />
     )
   }
   
-  const renderStoryWithQuotes = (content) => {
-    let parts = []
+  const renderStoryWithQuotes = (content: string[]) => {
+    let parts: string[] = []
     content.forEach((part, i) => {
       const str = `${part}`
       parts.push(str)
@@ -42,18 +56,18 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
       <div className={'storyContent'}>
         {parts.map((part, i) => {
           return(
-            <>
-              >{part}
-              <br/>>
+            <div key={i}>
+              &gt;{part}
+              <br/>&gt;
               <br/>
-            </>
+            </div>
           )
         })}
       </div>
     )
   }
   
-  const renderStory = (content) => {
+  const renderStory = (content: string[]) => {
     return (
       <div className={'storyContent'}>
         {content.map((part, i) => {
@@ -71,10 +85,10 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     setQuoteColor(qc)
   }
   
-  const renderStoryBody = (content) => {
+  const renderStoryBody = (content: string[]) => {
     return (
       <Modal.Body className={'modal-dark'}>
-        <div style={{float: "right", color: quoteColor}}><span style={{cursor: "pointer"}} onClick={(e) => { e.preventDefault(); toggleQuote(true);}}>Quote</span></div>
+        <div style={{float: "right", color: quoteColor}}><span style={{cursor: "pointer"}} onClick={(e) => { e.preventDefault(); toggleQuote();}}>Quote</span></div>
         {story.media_url &&
           <Row style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
             <Col xs={{span: 12}}>
@@ -93,25 +107,25 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
   }
   
   const renderMediaBody = () => {
-    if (story.content.match(/vid|mp4$/)) {
+    if (typeof story.content === 'string' && story.content.match(/vid|mp4$/)) {
       return (
         <Modal.Body className={'modal-dark'}>
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
-              <video style={{maxWidth: '350px'}} controls={'controls'} autoPlay={'autoplay'}
-                     loop={"loop"} muted>
+              <video style={{maxWidth: '350px'}} controls autoPlay
+                     loop muted>
                 <source src={story.content} type={'video/mp4'}></source>
               </video>
             </Col>
           </Row>
         </Modal.Body>
       )
-    } else if (story.content.match(/pics/)) {
+    } else if (typeof story.content === 'string' && story.content.match(/pics/)) {
       return (
         <Modal.Body className={'modal-dark'}>
           <Row>
             <Col xs={12} style={{textAlign: 'center'}}>
-              <LazyLoadImage src={story.media_url}
+              <LazyLoadImage src={story.media_url || ''}
                              style={imageStyle}
                              alt="story"
               />
@@ -120,7 +134,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
         </Modal.Body>
       )
     } else {
-      renderStory([story.content])
+      return renderStory([story.content as string])
     }
   }
   
@@ -128,7 +142,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
     if (typeof story.content == 'string') {
       return renderMediaBody();
     } else {
-      return renderStoryBody(story.content);
+      return renderStoryBody(story.content as string[]);
     }
   }
   
@@ -153,7 +167,7 @@ function EmbeddedStoryDialog({story, setShowStoryDialog}) {
 }
 export default EmbeddedStoryDialog;
 
-const imageStyle = { 
+const imageStyle: React.CSSProperties = { 
   margin: 'auto',
   display: 'block',
   minHeight: '250px',

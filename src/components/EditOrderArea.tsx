@@ -4,7 +4,20 @@ import React, { useState } from "react";
 import GridLayout from "react-grid-layout";
 import {API_ROOT} from "../constants";
 import Button from "react-bootstrap/Button";
-function EditOrderArea({toggleOrderScreen, newsSources}) {
+
+interface NewsSource {
+  source_id: number;
+  source_name: string;
+  enabled: boolean;
+  list_order: number;
+}
+
+interface EditOrderAreaProps {
+  toggleOrderScreen: () => void;
+  newsSources: NewsSource[];
+}
+
+function EditOrderArea({toggleOrderScreen, newsSources}: EditOrderAreaProps): React.ReactElement {
   // State to track enabled/disabled status
   const [sources, setSources] = useState(newsSources);
 
@@ -24,7 +37,7 @@ function EditOrderArea({toggleOrderScreen, newsSources}) {
   });
 
   // Function to toggle enable/disable status
-  const toggleSourceStatus = (e, sourceId) => {
+  const toggleSourceStatus = (e: React.MouseEvent, sourceId: number) => {
     // Stop event propagation to prevent GridLayout from capturing it
     e.stopPropagation();
     e.preventDefault();
@@ -61,7 +74,7 @@ function EditOrderArea({toggleOrderScreen, newsSources}) {
     });
   };
 
-  const updateLayout = (layout) => {
+  const updateLayout = (layout: any[]) => {
     console.log(layout);
     let orderedLayout = layout.sort((a, b) => {
       if (a.y === b.y) {
@@ -169,7 +182,7 @@ function EditOrderArea({toggleOrderScreen, newsSources}) {
 }
 
 // Styles for the disabled sources section
-const disabledSourcesContainerStyle = {
+const disabledSourcesContainerStyle: React.CSSProperties = {
   marginTop: '2rem',
   padding: '1rem',
   border: '1px solid #ddd',
@@ -178,7 +191,7 @@ const disabledSourcesContainerStyle = {
 };
 
 // Styles for the disabled source items
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   disabledSourceItem: {
     padding: '0.5rem',
     margin: '0.5rem 0',

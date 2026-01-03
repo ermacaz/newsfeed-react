@@ -4,7 +4,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NewsSourcesSet from "./components/NewsSourcesSet";
 import './App.css';
 
-function App() {
+const paddedStyle: React.CSSProperties = {
+  paddingTop: '1em',
+  backgroundColor: '#282a36'
+};
+
+function App(): React.ReactElement {
   return (
     <div className="App">
       <header className="App-header">
@@ -17,8 +22,3 @@ function App() {
 }
 
 export default App;
-
-const paddedStyle = {
-  paddingTop: '1em',
-  backgroundColor: '#282a36'
-}
